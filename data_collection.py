@@ -1,7 +1,9 @@
 import api_key
 from lyricsgenius import Genius
-import requests
 import pandas as pd
+import os
+import time
+from requests.exceptions import HTTPError, Timeout
 
 # Rock songs
 long_songs = pd.read_csv('classic-rock-song-list.txt')
@@ -18,8 +20,50 @@ rap.drop(hh_unnecessary, axis=1, inplace=True)
 rap['genre'] = 'rap'
 
 # Full song list
-merged = pd.concat([long_songs, rap])
+merged = pd.concat([long_songs, rap], ignore_index=False)
+merged.reset_index(drop=True, inplace=True)
 
 # API access
 token = api_key.client_access_token
-genius = Genius(token, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)"], timeout=60, verbose=False)
+genius = Genius(token, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)"], timeout=45, verbose=False)
+
+
+# Adding lyrics
+lyrics = []
+for i in merged.index:
+    data = pd.DataFrame()
+    song = merged.loc[i]['title']
+    artist = merged.loc[i]['artist']
+    genre = merged.loc[i]['genre']
+    success = False
+    retries = 1
+    while not success and retries < 5:
+        try:
+            result = genius.search_song(title=song, artist=artist)
+            success = True
+        except HTTPError:
+            wait = retries * 30
+            print(HTTPError.errno)
+            print('Error, waiting {} secs before trying again'.format(wait))
+            time.sleep(wait)
+            retries += 1
+        except Timeout:
+            wait = retries * 30
+            print(Timeout.errno)
+            print('Error, waiting {} secs before trying again'.format(wait))
+            time.sleep(wait)
+            retries += 1
+    if result is not None:
+        song_lyrics = result.lyrics
+        data = {'id': i, 'title': song, 'artist': artist, 'lyrics': song_lyrics}
+        lyrics.append(data)
+
+
+data_lyrics = pd.DataFrame(lyrics)
+print(data_lyrics.head())
+
+# Writing to csv file
+cwd = os.getcwd()
+path = cwd + '/full_lyric_data'
+data_lyrics.to_csv(path)
+
