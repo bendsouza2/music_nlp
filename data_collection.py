@@ -55,15 +55,13 @@ for i in merged.index:
             retries += 1
     if result is not None:
         song_lyrics = result.lyrics
-        data = {'id': i, 'title': song, 'artist': artist, 'lyrics': song_lyrics}
+        data = {'id': i, 'title': song, 'artist': artist, 'genre': genre, 'lyrics': song_lyrics}
         lyrics.append(data)
 
 
-data_lyrics = pd.DataFrame(lyrics)
+data_lyrics = pd.DataFrame(lyrics)  # converting list of dictionaries to df
 print(data_lyrics.head())
 
 # Writing to csv file
-cwd = os.getcwd()
-path = cwd + '/full_lyric_data'
-data_lyrics.to_csv(path)
+data_lyrics.to_csv(os.getcwd() + '/lyric_data')
 
