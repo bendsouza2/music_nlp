@@ -25,3 +25,5 @@ eng_only.drop('lang_code', axis=1, inplace=True)
 eng_only['lyrics'] = eng_only['lyrics'].apply(lambda x: re.sub(r'^.*?]', '', x))
 # Removing all characters within [] - typically includes [Verse x] or [Intro]/[Outro]
 eng_only['lyrics'] = eng_only['lyrics'].apply(lambda x: re.sub('[\(\[].*?[\)\]]', '', x))
+# Removing newlines
+eng_only['lyrics'] = eng_only['lyrics'].replace(r'\n', ' ', regex=True)
