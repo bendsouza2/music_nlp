@@ -3,8 +3,14 @@ Project to practice NLP in Python on music data taken from Genius API
 ## Libraries Used 
 * Pandas
 * LyricsGenius
-* os
+* Numpy
+* Langdetect
 * Requests
+* Python standard library:
+	* os
+	* time
+	* re
+	* string
 
 
 
