@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from langdetect import detect
 import re
+import string
+import os
 
 pd.options.display.max_columns = 5
 
@@ -27,3 +29,10 @@ eng_only['lyrics'] = eng_only['lyrics'].apply(lambda x: re.sub(r'^.*?]', '', x))
 eng_only['lyrics'] = eng_only['lyrics'].apply(lambda x: re.sub('[\(\[].*?[\)\]]', '', x))
 # Removing newlines
 eng_only['lyrics'] = eng_only['lyrics'].replace(r'\n', ' ', regex=True)
+
+# Removing punctuation
+translator = str.maketrans('', '', string.punctuation)
+eng_only['lyrics'] = eng_only['lyrics'].apply(lambda x: x.translate(translator))
+
+# Writing to csv
+eng_only.to_csv(os.getcwd() + '/ld_clean')
