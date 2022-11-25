@@ -25,8 +25,8 @@ merged.reset_index(drop=True, inplace=True)
 
 # API access
 token = api_key.client_access_token
-genius = Genius(token, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)"], timeout=45, verbose=False)
-
+genius = Genius(token, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)", "Traduction", "Traducción"],
+                timeout=45, verbose=False)
 
 # Adding lyrics
 lyrics = []
