@@ -9,7 +9,6 @@ Project to practice NLP in Python on music data taken from Genius API
 * Langdetect
 * Requests
 * Matplotlib
-* Python standard library (os, time, re, string)
 
 
 
@@ -27,3 +26,6 @@ Project to practice NLP in Python on music data taken from Genius API
 
 ## Stage 3
 [Model building and analysis](https://github.com/bendsouza2/music_nlp/blob/main/model.py) - testing different classifiers with and without stop words to determine the best method of predicting music genre using lyrics
+
+## Stage 4
+[Visualising the data](https://github.com/bendsouza2/music_nlp/blob/main/visual.py) - creating visuals to display the most common words for each genre
