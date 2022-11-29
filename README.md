@@ -4,13 +4,12 @@ Project to practice NLP in Python on music data taken from Genius API
 * Pandas
 * LyricsGenius
 * Numpy
+* Sklearn
+* Imblearn
 * Langdetect
 * Requests
-* Python standard library:
-	* os
-	* time
-	* re
-	* string
+* Matplotlib
+* Python standard library (os, time, re, string)
 
 
 
@@ -25,3 +24,6 @@ Project to practice NLP in Python on music data taken from Genius API
 
 ## Stage 2
 [Data cleaning](https://github.com/bendsouza2/music_nlp/blob/main/data_cleaning.py) - removing non-English language lyrics, punctuation and non-lyrics from the data.
+
+## Stage 3
+[Model building and analysis](https://github.com/bendsouza2/music_nlp/blob/main/model.py) - testing different classifiers with and without stop words to determine the best method of predicting music genre using lyrics
